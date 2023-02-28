@@ -2,7 +2,7 @@
 Stardew Modded Mise en Place
 Generates two files for Cooking recipes and ingredients
 based on a crawl of your Mods directory.
-Change line 12 to suit your needs.
+Change line 14 to suit your needs.
 Output files go in the same directory as this script.
 """
 
