@@ -947,7 +947,6 @@ recipes = {
     "Ginger Ale": {"Ginger": 3, "Sugar": 1},
     "Triple Shot Espresso": {"Coffee": 3}
 }
-targetdir = "E:\\Program Files\\SteamLibrary\\steamapps\\common\\Stardew Valley\\Mods"
 
 
 # find all json files in "Objects" subfolders within the Mods directory
