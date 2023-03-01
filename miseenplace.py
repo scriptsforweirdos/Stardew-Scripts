@@ -11,7 +11,7 @@ import pyjson5
 import csv
 
 # change this to your Mods directory.
-targetdir = "E:\\Program Files\\SteamLibrary\\steamapps\\common\\Stardew Valley\\Mods"
+targetdir = "C:\\Program Files\\SteamLibrary\\steamapps\\common\\Stardew Valley\\Mods"
 
 # vanilla ID dictionary along with the hardcoded More New Fish IDs
 vanillaids = {
@@ -968,22 +968,28 @@ def jsonparse(rootdir):
             if name.endswith((".json")):
                 # full_path = os.path.join(root, name)
                 # print(full_path)
-                data = pyjson5.load(open(os.path.join(root, name), encoding="utf-8"))
-                if "Category" in data:
-                    if data["Category"] == "Cooking":
-                        recipename = data["Name"]
-                        # print(recipename)
-                        itemlist = {}
-                        for item in data["Recipe"]["Ingredients"]:
-                            if item["Object"] in vanillaids:
-                                objectname = vanillaids[item["Object"]]
-                            else:
-                                objectname = item["Object"]
-                            itemlist[objectname] = item["Count"]
-                            # Add the recipe to the recipes list
-                            recipes[recipename] = itemlist
+                try:
+                    data = pyjson5.load(open(os.path.join(root, name), encoding="utf-8"))
+                    if "Category" in data:
+                        if data["Category"] == "Cooking":
+                            recipename = data["Name"]
+                            # print(recipename)
+                            itemlist = {}
+                            for item in data["Recipe"]["Ingredients"]:
+                                if item["Object"] in vanillaids:
+                                    objectname = vanillaids[item["Object"]]
+                                else:
+                                    objectname = item["Object"]
+                                itemlist[objectname] = item["Count"]
+                                # Add the recipe to the recipes list
+                                recipes[recipename] = itemlist
+                except Exception:
+                    full_path = os.path.join(root, name)
+                    print("Could not parse: " + str(full_path))
 
 
+print("Now scanning your Mods directory. If nothing is generated, "
+      "go back and edit line 14 of the script to point to your Mods folder.")
 dirlist = objectdirs(targetdir)
 # fill the recipes list
 for dirpath in dirlist:
@@ -1037,3 +1043,9 @@ with open('ingredients.csv', 'w', newline='', encoding="utf-8") as csvfile:
     sorted_ingredients = {key: value for key, value in sorted(ingredients.items())}
     for k, v in sorted_ingredients.items():
         filewriter.writerow([k, v])
+
+print("Files written to the same directory as this script.\n"
+      "If I said that I could not read some or any files,\n"
+      "it is probably because they are poorly formatted JSON.\n"
+      "If they happen to be recipes, you will have to\n"
+      "manually add them to the tallies created.")
