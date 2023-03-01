@@ -15,7 +15,7 @@ For Python. Walks through your Mods directory, pulls any JSON files for Cooking 
 
 Change line 14 to point to your Stardew Mods directory.
 
-`miseenplace.py`
+`miseenplace.py`  
 Outputs two CSV files to the same directory as the script.
 
 * **recipes.csv** lists all the Cooking recipes individually with their ingredients. 
@@ -33,12 +33,16 @@ For Python. A switchblade for craftables! Get your Craft Master on with similar 
 
 Change line 18 to point to your Stardew Mods directory.
 
-`farmdepot.py` or `farmdepot.py -master` Outputs two CSV files to the same directory as the script. 
+`farmdepot.py` or  
+`farmdepot.py -master`  
+Outputs two CSV files to the same directory as the script. 
 
 * **bigcraftables.csv** lists all Crafting recipes individually with ingredients.
 * **craft_ingredients.csv** counts all the Crafting ingredients required for one of each for the Craft Master achievement.
 
-`farmdepot.py -m amount item` Calculates how many resources you need to make X number of a craftable.
+`farmdepot.py -m amount item` or  
+`farmdepot.py -math amount item`  
+Calculates how many resources you need to make X number of a craftable.
 
 Example: `farmdepot.py -m 155 Cheese Press`
 
