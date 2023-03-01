@@ -23,7 +23,7 @@ Outputs two CSV files to the same directory as the script.
 
 # Farm Depot (farmdepot.py)
 
-No 3rd party modules required.
+Requires pyjson5.
 
 For Python. A switchblade for craftables! Get your Craft Master on with similar CSV outputs to Mise En Place, or do the math to find out how many resources you need to craft multiples of any machine or item on the crafting list.
 
