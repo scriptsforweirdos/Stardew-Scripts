@@ -17,4 +17,4 @@ For Python. Walks through your Mods directory, pulls any JSON files for Cooking 
 
 CSV files are output in the same directory as the script. Script can be anywhere on your HD. Change line 14 to point to your Mods directory.
 
-**Known Issue:** If the JSON file for a specific recipe is poorly formed the script will not complete. I need to get some error handling in place for this as right now it will just fail. It uses JSON5 to handle a lot of the weirdness in human-crafted JSON but the game is more relaxed about unlinted JSON than Python is.
+**Update 2023-03-01:** If the JSON file for a specific recipe is poorly formatted or miscategorized the script will now skip it and let you know which ones it skips so you can manually add them. Python has no chill when it comes to JSON lint errors. Also, the script tells you a bit more about what it's doing now.
