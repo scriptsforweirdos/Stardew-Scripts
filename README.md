@@ -16,3 +16,5 @@ For Python. Walks through your Mods directory, pulls any JSON files for Cooking 
 **ingredients.csv** counts all of the ingredients required, recursing 3 levels deep for pesky menu items like Complete Breakfast or Seafood Platter from More New Fish. Should be able to handle any pile of Mods pretty quickly. I'm currently running with just over 200 mods and it finished in 8.165 seconds.
 
 CSV files are output in the same directory as the script. Script can be anywhere on your HD. Change line 14 to point to your Mods directory.
+
+**Known Issue:** If the JSON file for a specific recipe is poorly formed the script will not complete. I need to get some error handling in place for this as right now it will just fail. It uses JSON5 to handle a lot of the weirdness in human-crafted JSON but the game is more relaxed about unlinted JSON than Python is.
