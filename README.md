@@ -9,7 +9,7 @@ I may or may not take requests, find me in the Stardew Discord as NoStealthRaisi
 
 Requires pyjson5.
 
-For Python. Walks through your Mods directory, pulls any JSON files for Cooking recipes, collates them and spits them out into two CSV files for your happy importing to Excel or Google Sheets. 
+For Python. Walks through your Mods directory, pulls any JSON files for Cooking recipes, collates them and spits them out into two CSV files for your happy importing to Excel or Google Sheets. Does not work with Dynamic Game Assets at this time.
 
 **recipes.csv** lists all the recipes individually with their ingredients. 
 
