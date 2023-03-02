@@ -1008,7 +1008,7 @@ def objectdirs(rootdir):
     pathlist = []
     for root, dirs, files in os.walk(rootdir):
         for name in files:
-            if name == "object.json":
+            if name == "object.json" or name == "big-craftable.json":
                 full_path = os.path.join(root, name)
                 pathlist.append(full_path)
     return pathlist
@@ -1024,7 +1024,7 @@ def jsonparse(filepath):
         # recipecategory = data["Category"]
         # print(recipename + " " + recipecategory)
         itemlist = {}
-        if "Category" in data and data["Category"] != "Cooking" and "Recipe" in data and data["Recipe"] is not None and "Ingredients" in data["Recipe"]:
+        if (("Category" in data and data["Category"] != "Cooking") or "Category" not in data) and "Recipe" in data and data["Recipe"] is not None and "Ingredients" in data["Recipe"]:
             for item in data["Recipe"]["Ingredients"]:
                 if item["Object"] in vanillaids:
                     objectname = vanillaids[item["Object"]]
