@@ -2,7 +2,7 @@
 Stardew Modded Farm Depot
 Generates two files for Crafting recipes and ingredients
 based on a crawl of your Mods directory.
-Change line 14 to suit your needs.
+Change line 18 to suit your needs.
 Output files go in the same directory as this script.
 """
 
@@ -914,12 +914,12 @@ recipes = {
     "Crystal Floor": {"Refined Quartz": 1},
     "Stone Floor": {"Stone": 1},
     "Stone Walkway Floor": {"Stone": 1},
-    "Brick Floor (5)": {"Clay": 2, "Stone": 5},
+    "Brick Floor": {"Clay": 2, "Stone": 5},
     "Wood Path": {"Wood": 1},
     "Gravel Path": {"Stone": 1},
     "Cobblestone Path": {"Stone": 1},
     "Stepping Stone Path": {"Stone": 1},
-    "Crystal Path (5)": {"Refined Quartz": 1},
+    "Crystal Path": {"Refined Quartz": 1},
     "Spinner": {"Iron Bar": 2},
     "Trap Bobber": {"Copper Bar": 1, "Sap": 10},
     "Cork Bobber": {"Wood": 10, "Hardwood": 5, "Slime": 10},
@@ -927,10 +927,10 @@ recipes = {
     "Treasure Hunter": {"Gold Bar": 2},
     "Dressed Spinner": {"Iron Bar": 2, "Cloth": 1},
     "Barbed Hook": {"Copper Bar": 1, "Iron Bar": 1, "Gold Bar": 1},
-    "Magnet (3)": {"Iron Bar": 1},
-    "Bait (5) ": {"Bug Meat": 1},
-    "Wild Bait (5)": {"Fiber": 10, "Bug Meat": 5, "Slime": 5},
-    "Magic Bait (3)": {"Radioactive Ore": 1, "Bug Meat": 3},
+    "Magnet": {"Iron Bar": 1},
+    "Bait ": {"Bug Meat": 1},
+    "Wild Bait": {"Fiber": 10, "Bug Meat": 5, "Slime": 5},
+    "Magic Bait": {"Radioactive Ore": 1, "Bug Meat": 3},
     "Crab Pot": {"Iron Bar": 3, "Wood": 40},
     "Sturdy Ring": {"Copper Bar": 2, "Bug Meat": 25, "Slime": 25},
     "Warrior Ring": {"Iron Bar": 10, "Coal": 25, "Frozen Tear": 10},
@@ -1007,8 +1007,8 @@ recipes = {
 def objectdirs(rootdir):
     pathlist = []
     for root, dirs, files in os.walk(rootdir):
-        for name in dirs:
-            if name == "BigCraftables":
+        for name in files:
+            if name == "object.json":
                 full_path = os.path.join(root, name)
                 pathlist.append(full_path)
     return pathlist
@@ -1016,40 +1016,36 @@ def objectdirs(rootdir):
 
 # parse the json files within each directory
 # add all recipes to the recipe list
-def jsonparse(rootdir):
-    for root, dirs, files in os.walk(rootdir):
-        for name in files:
-            if name.endswith((".json")):
-                # full_path = os.path.join(root, name)
-                # print(full_path)
-                try:
-                    data = pyjson5.load(open(os.path.join(root, name), encoding="utf-8"))
-                    recipename = data["Name"]
-                    # print(recipename)
-                    itemlist = {}
-                    if "Recipe" in data and "Ingredients" in data["Recipe"]:
-                        for item in data["Recipe"]["Ingredients"]:
-                            if item["Object"] in vanillaids:
-                                objectname = vanillaids[item["Object"]]
-                            else:
-                                objectname = item["Object"]
-                            itemlist[objectname] = item["Count"]
-                            # Add the recipe to the recipes list
-                            recipes[recipename] = itemlist
-                except Exception:
-                    full_path = os.path.join(root, name)
-                    print("Could not parse: " + str(full_path))
+# In this case we want anything that has recipe ingredients but isn't Cooking.
+def jsonparse(filepath):
+    try:
+        data = pyjson5.load(open(filepath, encoding="utf-8"))
+        recipename = data["Name"]
+        # recipecategory = data["Category"]
+        # print(recipename + " " + recipecategory)
+        itemlist = {}
+        if "Category" in data and data["Category"] != "Cooking" and "Recipe" in data and data["Recipe"] is not None and "Ingredients" in data["Recipe"]:
+            for item in data["Recipe"]["Ingredients"]:
+                if item["Object"] in vanillaids:
+                    objectname = vanillaids[item["Object"]]
+                else:
+                    objectname = item["Object"]
+                itemlist[objectname] = item["Count"]
+                # Add the recipe to the recipes list
+                recipes[recipename] = itemlist
+    except Exception:
+        print("Could not parse: " + str(filepath))
 
 
 def craftmaster():
-    print("Now scanning your Mods directory. If nothing is generated, "
-          "go back and edit line 14 of the script to point to your Mods folder.")
+    print("Now scanning your Mods directory. If nothing is generated,\n"
+          "go back and edit line 18 of the script to point to your Mods folder.")
     dirlist = objectdirs(targetdir)
     # fill the recipes list
     for dirpath in dirlist:
         jsonparse(dirpath)
 
-    # print(recipes)  # uncomment to debug
+    print(recipes)  # uncomment to debug
 
     # output the recipe list to csv
     with open('bigcraftables.csv', 'w', newline='', encoding="utf-8") as csvfile:
@@ -1089,6 +1085,8 @@ def craftmaster():
           "it is probably because they are poorly formatted JSON.\n"
           "If they happen to be required for Craft Master, you will have to\n"
           "manually add them to the tallies created.\n\n"
+          "This script handles JSON Assets and Vanilla items only.\n"
+          "If an item is added via DLL or DGA it will not be included.\n\n"
           "If you are a Trapper, deduct 15 Wood and 3 Iron bars and\n"
           "add 2 Copper Bars to the crafting ingredients list.\n\n"
           "The Wedding Ring (included) is not required for\n"
