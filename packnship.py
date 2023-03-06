@@ -89,10 +89,11 @@ def jsonparse(rootdir):
                                 truecategory = categoryids[str(data["Category"])]
                             else:
                                 truecategory = data["Category"]
-                        if truecategory not in items:
-                            items[truecategory] = [itemname]
-                        else:
-                            items[truecategory].append(itemname)
+
+                            if truecategory not in items:
+                                items[truecategory] = [itemname]
+                            else:
+                                items[truecategory].append(itemname)
                 except Exception:
                     full_path = os.path.join(root, name)
                     print("Could not parse: " + str(full_path))
