@@ -11,7 +11,7 @@ import pyjson5
 import csv
 
 # change this to your Mods directory.
-targetdir = "C:\\Program Files\\SteamLibrary\\steamapps\\common\\Stardew Valley\\Mods"
+targetdir = "E:\\Program Files\\SteamLibrary\\steamapps\\common\\Stardew Valley\\Mods"
 
 # vanilla numeric category list
 categoryids = {
@@ -113,8 +113,13 @@ with open('shipping.csv', 'w', newline='', encoding="utf-8") as csvfile:
     filewriter = csv.writer(csvfile, delimiter=",")
     # sort alpha
     for cat, vlist in items.items():
+        # remove the dupes
+        uniquelist = []
+        [uniquelist.append(item.strip()) for item in vlist if item.strip() not in uniquelist]
         filewriter.writerow([cat])
-        sortedvlist = sorted(vlist)
+        # alpha sort the category
+        sortedvlist = sorted(uniquelist)
+        # chunk into rows of 10 items each
         for i in range(0, len(vlist), 10):
             x = i
             filewriter.writerow(sortedvlist[x:x + 10])
