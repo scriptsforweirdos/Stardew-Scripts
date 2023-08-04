@@ -19,7 +19,7 @@ Outputs two CSV files to the same directory as the script.
 * **recipes.csv** lists all the Cooking recipes individually with their ingredients. 
 * **ingredients.csv** counts all of the Cooking ingredients required, recursing 3 levels deep for pesky menu items like Complete Breakfast or Seafood Platter from More New Fish. Should be able to handle any pile of Mods pretty quickly. I'm currently running with just over 200 mods and it finished in 8.165 seconds.
 
-**Known Issues:** Does not work with items added via DGA (may fix in the future) or DLL (won't fix) at this time.
+**Known Issues:** Does not work with items added via DGA (may fix in the future) or DLL (won't fix) at this time. Does not parse recipes added by Content Patcher. I will not fix this in this script but am working on something that will be able to handle these.
 **Update 2023-03-01:** If the JSON file for a specific recipe is poorly formatted or miscategorized the script will now skip it and let you know which ones it skips so you can manually add them. Python has no chill when it comes to JSON lint errors. Also, the script tells you a bit more about what it's doing now.
 
 # Farm Depot (farmdepot.py)
