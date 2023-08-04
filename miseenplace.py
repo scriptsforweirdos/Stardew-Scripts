@@ -7,11 +7,12 @@ Output files go in the same directory as this script.
 """
 
 import os
+import pprint
 import pyjson5
 import csv
 
 # change this to your Mods directory.
-targetdir = "C:\\Program Files\\SteamLibrary\\steamapps\\common\\Stardew Valley\\Mods"
+targetdir = "E:\\Program Files\\SteamLibrary\\steamapps\\common\\Stardew Valley\\Mods"
 
 # vanilla ID dictionary along with the hardcoded More New Fish IDs
 vanillaids = {
@@ -988,6 +989,51 @@ def jsonparse(rootdir):
                     print("Could not parse: " + str(full_path))
 
 
+def explodeCooking(cfrecipes):
+    rawIngredients = {}
+    for rk, rv in cfrecipes.items():
+        allRaw = False
+        while not allRaw:
+            toDelete = []
+            toAdd = {}
+            itemStatus = []
+            for ik, iv in rv.items():
+                cookedItem = False
+                if not ik.startswith("Any "):
+                    rsearch = [ck for ck, cv in cfrecipes.items() if ck == ik]
+                    if rsearch:
+                        cidx = rsearch[0]
+                        cookedItem = True
+                        toDelete.append(ik)
+                        for subK, subV in cfrecipes[cidx].items():
+                            if subK not in rv:
+                                if subK not in toAdd:
+                                    toAdd[subK] = subV * iv
+                                else:
+                                    toAdd[subK] += subV * iv
+                            else:
+                                rv[subK] += subV * iv
+                    else:
+                        cookedItem = False
+                else:  # it's a category, assume it's raw
+                    cookedItem = False
+                itemStatus.append(cookedItem)
+            if toDelete:
+                for td in toDelete:
+                    del rv[td]
+            if toAdd:
+                for tk, tv in toAdd.items():
+                    rv[tk] = tv
+            if not any(x for x in itemStatus):
+                allRaw = True
+        for ik, iv in rv.items():
+            if ik not in rawIngredients:
+                rawIngredients[ik] = iv
+            else:
+                rawIngredients[ik] += iv
+    return rawIngredients
+
+
 print("Now scanning your Mods directory. If nothing is generated, "
       "go back and edit line 14 of the script to point to your Mods folder.")
 dirlist = objectdirs(targetdir)
@@ -1010,29 +1056,8 @@ with open('recipes.csv', 'w', newline='', encoding="utf-8") as csvfile:
             inglist.append(prettytext)
         ingtext = "\r\n".join(inglist)
         filewriter.writerow([k, ingtext])
-
-# Now let's walk through that recipe list and make the ingredients list
-# this will recurse up to 3 levels deep for dishes like Complete Breakfast
-# and Seafood Platter from Mermaid Island which require subrecipes.
-for k, v in recipes.items():
-    for k1, v1 in v.items():
-        if k1 in recipes:
-            for k2, v2 in recipes[k1].items():
-                if k2 in recipes:
-                    for k3, v3 in recipes[k2].items():
-                        if k3 in ingredients:
-                            ingredients[k3] += v3
-                        else:
-                            ingredients[k3] = v3
-                elif k2 in ingredients:
-                    ingredients[k2] += v2
-                else:
-                    ingredients[k2] = v2
-        else:
-            if k1 in ingredients:
-                ingredients[k1] += v1
-            else:
-                ingredients[k1] = v1
+# pprint.pprint(recipes)
+ingredients = explodeCooking(recipes)
 
 # print(ingredients)  # uncomment to debug
 
