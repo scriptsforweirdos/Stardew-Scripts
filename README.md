@@ -1,7 +1,7 @@
 # Stardew Scripts
 This is (or eventually will be) my little pile of scripts for dealing with the many, many Stardew Valley Mods that I like to use in my loadout.
 
-I may or may not take requests, find me in the Stardew Discord as OnionNinja (@error418teapot).
+I may or may not take requests. Open an Issue if you want something specific.
 
 # Mise En Place (miseenplace.py)
 
