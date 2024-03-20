@@ -88,4 +88,4 @@ If a names file is not provided, files will be named numerically following the p
 
 Example full command with params: 
 
-`python imagechopper.py --i="H:/Stardew Decompiled/Content (unpacked)/Maps/springobjects.png" --w=16 --h=16 --o="H:/Stardew To Do List/chopped/" --rw=96 --n="H:/Stardew To Do List/imagenames.txt"
+`python imagechopper.py --i="H:/Stardew Decompiled/Content (unpacked)/Maps/springobjects.png" --w=16 --h=16 --o="H:/Stardew To Do List/chopped/" --rw=96 --n="H:/Stardew To Do List/imagenames.txt"`
