@@ -62,3 +62,30 @@ Change line 14 to point to your Stardew Mods directory.
 
 `packnship.py`  
 Outputs one CSV file "shipping.csv" to the same directory as the script.
+
+# Image Chopper (imagechopper.py)
+
+Requires Pillow.
+
+For Python. Chops Vanilla Stardew spritesheets into separate images and enlarges to specified dimensions. Created to assist with the updating of the Stardew Valley wiki following the release of the 1.6 update.
+
+# Usage:
+
+If you want to be walked through the process, run from commandline without any parameters: `py imagechopper.py` or `python imagechopper.py`
+
+For help, `py imagechopper.py -h`
+
+Alternately, use the parameters.
+
+* --i or -input: path to origin image in double quotes
+* --w or -width: width of a sprite in the origin image (integer)
+* --h or -height: height of a sprite in the origin image (integer)
+* --o or -output: path to the directory where you want to store the new images
+* --rw or -resultwidth: width of the created images. Images will be scaled to maintain ratios.
+* --n or -names: (Optional) path to text file containing a list of image names, one name per line.
+
+If a names file is not provided, files will be named numerically following the pattern NAME_1.png, NAME_2.png, etc. where NAME is the name of the original file.
+
+Example full command with params: 
+
+`python imagechopper.py --i="H:/Stardew Decompiled/Content (unpacked)/Maps/springobjects.png" --w=16 --h=16 --o="H:/Stardew To Do List/chopped/" --rw=96 --n="H:/Stardew To Do List/imagenames.txt"
