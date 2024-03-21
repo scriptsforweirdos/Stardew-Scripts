@@ -134,9 +134,13 @@ if __name__ == "__main__":
         inputData = getInput()
     chopImages(inputData)
     print("Images saved to {}".format(inputData["destDir"]))
+    if os.name == "nt":
+        pycommand = "python"
+    else:
+        pycommand = "python3"
     if shortcutNeeded:
         if "names" in inputData and inputData["names"]:
-            outStr = 'To repeat this process quickly, type:\npython imagechopper.py --i="{}" --w={} --h={} --o="{}" --rw={}, --n="{}"'.format(inputData["srcFile"], inputData["originWidth"], inputData["originHeight"], inputData["destDir"], inputData["outWidth"], inputData["names"])
+            outStr = 'To repeat this process quickly, type:\n{} imagechopper.py --i="{}" --w={} --h={} --o="{}" --rw={}, --n="{}"'.format(pycommand, inputData["srcFile"], inputData["originWidth"], inputData["originHeight"], inputData["destDir"], inputData["outWidth"], inputData["names"])
         else:
-            outStr = 'To repeat this process quickly, type:\npython imagechopper.py --i="{}" --w={} --h={} --o="{}" --rw={}'.format(inputData["srcFile"], inputData["originWidth"], inputData["originHeight"], inputData["destDir"], inputData["outWidth"])
+            outStr = 'To repeat this process quickly, type:\n{} imagechopper.py --i="{}" --w={} --h={} --o="{}" --rw={}'.format(pycommand, inputData["srcFile"], inputData["originWidth"], inputData["originHeight"], inputData["destDir"], inputData["outWidth"])
         print(outStr)
