@@ -88,22 +88,25 @@ def getInput():
 
 
 def dir_path(path):
-    if os.path.isdir(path):
-        return path
+    expandedpath = os.path.expanduser(path)
+    if os.path.isdir(expandedpath):
+        return expandedpath
     else:
         raise argparse.ArgumentTypeError("{} is not a valid path".format(path))
 
 
 def img_path(path):
-    if os.path.exists(path) and path.endswith(".png"):
-        return path
+    expandedpath = os.path.expanduser(path)
+    if os.path.exists(expandedpath) and expandedpath.endswith(".png"):
+        return expandedpath
     else:
         raise argparse.ArgumentTypeError("{} is not a valid path".format(path))
 
 
 def txt_path(path):
-    if os.path.exists(path) and path.endswith(".txt"):
-        return path
+    expandedpath = os.path.expanduser(path)
+    if os.path.exists(expandedpath) and expandedpath.endswith(".txt"):
+        return expandedpath
     else:
         raise argparse.ArgumentTypeError("{} is not a valid path".format(path))
 
