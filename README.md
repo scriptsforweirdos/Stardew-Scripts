@@ -71,9 +71,9 @@ For Python. Chops Vanilla Stardew spritesheets into separate images and enlarges
 
 # Usage:
 
-If you want to be walked through the process, run from commandline without any parameters: `py imagechopper.py` or `python imagechopper.py`
+If you want to be walked through the process, run from commandline without any parameters.
 
-For help, `py imagechopper.py -h`
+For help, use the -h parameter: `python imagechopper.py -h` or `python3 imagechopper.py -h`.
 
 Alternately, use the parameters.
 
