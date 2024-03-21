@@ -5,6 +5,8 @@ I may or may not take requests. Open an Issue if you want something specific.
 
 # Mise En Place (miseenplace.py)
 
+For Stardew 1.5.6. Not tested with 1.6.
+
 Requires pyjson5.
 
 For Python. Walks through your Mods directory, pulls any JSON files for Cooking recipes, collates them and spits them out into two CSV files for your happy importing to Excel or Google Sheets.
@@ -23,6 +25,8 @@ Outputs two CSV files to the same directory as the script.
 **Update 2023-03-01:** If the JSON file for a specific recipe is poorly formatted or miscategorized the script will now skip it and let you know which ones it skips so you can manually add them. Python has no chill when it comes to JSON lint errors. Also, the script tells you a bit more about what it's doing now.
 
 # Farm Depot (farmdepot.py)
+
+For Stardew 1.5.6. Not tested with 1.6.
 
 Requires pyjson5.
 
@@ -51,6 +55,8 @@ In the event that large amounts of resources are required, it subdivides into ch
 **Update 2023-03-02:** Bugfix, discovered that not all craftables are in "BigCraftable" directories so it now searches far more broadly for anything with Recipe ingredients that isn't categorized as "Cooking".
 
 # Pack 'n' Ship (packnship.py)
+
+For Stardew 1.5.6. Not tested with 1.6.
 
 Requires pyjson5.
 
